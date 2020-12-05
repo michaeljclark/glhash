@@ -21,11 +21,11 @@
 
 typedef unsigned char u8;
 
-#if defined(WIN32) || defined(_WIN32) 
-#define PATH_SEP "\\" 
-#else 
-#define PATH_SEP "/" 
-#endif 
+#if defined(WIN32) || defined(_WIN32)
+#define PATH_SEP "\\"
+#else
+#define PATH_SEP "/"
+#endif
 
 static const char* comp_shader_glsl_filename = SRC_PATH PATH_SEP "sha256.comp";
 static const char* comp_shader_spir_filename = BIN_PATH PATH_SEP "sha256.comp.spv";
