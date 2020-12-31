@@ -25,7 +25,7 @@ if (HAVE_LIB_M)
 endif (HAVE_LIB_M)
 
 # find glslangValidator
-set (VULKAN_SDK "/opt/vulkan/1.2.154.0/x86_64")
+set(VULKAN_SDK "/opt/vulkan/1.2.154.0/x86_64" CACHE PATH "Vulkan SDK Location")
 find_program (GLSL_LANG_VALIDATOR NAMES glslangValidator PATHS ${VULKAN_SDK}/bin)
 
 # Find GLFW library
@@ -54,6 +54,7 @@ option(SPIRV_BINARIES "Use SPIR-V binaries" ${SPIRV_BINARY_DEFAULT})
 option(EXTERNAL_GLFW "Use external GLFW project" ON)
 option(EXTERNAL_GLAD "Use external GLAD project" ON)
 
+message(STATUS "VULKAN_SDK = ${VULKAN_SDK}")
 message(STATUS "OPENGL_EXAMPLES = ${OPENGL_EXAMPLES}")
 message(STATUS "EXTERNAL_GLFW = ${EXTERNAL_GLFW}")
 message(STATUS "EXTERNAL_GLAD = ${EXTERNAL_GLAD}")
