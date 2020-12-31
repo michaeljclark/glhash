@@ -9,8 +9,6 @@ a nano framework for creating apps using the modern OpenGL and
 GLSL shader pipeline. The `CMakeLists.txt` is intended to be used
 as a template for tiny demos.
 
-The shader implements the _SHA-2-256_ cryptographic hash function.
-
 ## Project Structure
 
 - `src/gl4_hash.c` - OpenGL 4.x compute demo using `gl2_util.h` loader.
