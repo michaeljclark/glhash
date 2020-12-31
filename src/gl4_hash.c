@@ -138,6 +138,8 @@ void test_sha256(size_t i, const u8 *input, size_t len, const u8 exemplar[32])
     printf("test_%zu.cpu = %s\n", i, to_hex(tbuf, sizeof(tbuf), result1, 32));
     test_sha256_gpu(result2, input, len);
     printf("test_%zu.gpu = %s\n", i, to_hex(tbuf, sizeof(tbuf), result2, 32));
+    assert(memcmp(result1, exemplar, 32) == 0);
+    assert(memcmp(result2, exemplar, 32) == 0);
 }
 
 static void run_all_tests()
