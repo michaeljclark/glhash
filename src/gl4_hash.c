@@ -126,9 +126,9 @@ static u8 result1[32], result2[32], tbuf[256];
 static char* to_hex(u8 *buf, size_t buf_len, const u8 *in, size_t in_len)
 {
     for (intptr_t i = 0, o = 0; i < in_len; i++) {
-        o+= snprintf(buf+o, buf_len - o, "%02" PRIx8, in[i]);
+        o+= snprintf((char*)buf+o, buf_len - o, "%02" PRIx8, in[i]);
     }
-    return buf;
+    return (char*)buf;
 }
 
 void test_sha256(size_t i, const u8 *input, size_t len, const u8 exemplar[32])
@@ -145,7 +145,7 @@ void test_sha256(size_t i, const u8 *input, size_t len, const u8 exemplar[32])
 static void run_all_tests()
 {
     for (size_t i = 0; i < array_items(tests); i++) {
-        test_sha256(i, tests[i].input, strlen(tests[i].input), tests[i].exemplar);
+        test_sha256(i, tests[i].input, strlen((char*)tests[i].input), tests[i].exemplar);
     }
 }
 
