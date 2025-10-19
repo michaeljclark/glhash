@@ -99,7 +99,7 @@ void test_sha256_gpu(u8 *result, const u8 *input, size_t length)
 
     ssbo_len = sizeof(SSBO_t) + ((length+3)&~3);
     ssbo_ptr = calloc(1, ssbo_len);
-    ssbo_ptr->length = length;
+    ssbo_ptr->length = (uint)length;
     memcpy(ssbo_ptr->data, input, length);
 
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo);
@@ -131,7 +131,7 @@ static u8 result1[32], result2[32], tbuf[256];
 
 static char* to_hex(u8 *buf, size_t buf_len, const u8 *in, size_t in_len)
 {
-    for (intptr_t i = 0, o = 0; i < in_len; i++) {
+    for (size_t i = 0, o = 0; i < in_len; i++) {
         o+= snprintf((char*)buf+o, buf_len - o, "%02" PRIx8, in[i]);
     }
     return (char*)buf;
