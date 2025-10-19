@@ -45,8 +45,18 @@ To invoke the example using SPIR-V binary module:
 
 ## Build Instructions
 
+glhash has been tested on the following operating systems:
+
+- Ubuntu 24.04 LTS
+- FreeBSD 14.3
+- Windows 11
+
+glhash requires the following dependencies:
+
+- Microsoft Windows plus Visual Studio 2022 with CMake and C/C++.
+- Linux or FreeBSD with GCC or Clang and CMake plus Ninja.
+
 ```
-sudo apt-get install -y cmake ninja-build
-cmake -G Ninja -B build .
+cmake -B build -G Ninja
 cmake --build build
 ```
