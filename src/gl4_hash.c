@@ -23,7 +23,7 @@
 #include <GLFW/glfw3.h>
 
 #include "sha256.h"
-#include "gl2_util.h"
+#include "gl2_nano.h"
 
 typedef unsigned char u8;
 
