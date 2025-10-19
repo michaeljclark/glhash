@@ -78,10 +78,10 @@ if (EXTERNAL_GLFW)
     set(GLFW_LIBRARIES glfw3)
     include_directories(${GLFW_INCLUDE_DIRS})
     link_directories(${GLFW_LIBRARY_DIR})
-    set(GLFW_LIBS_ALL ${GLFW_LIBRARIES} ${EXTRA_LIBS} ${CMAKE_DL_LIBS} ${CMAKE_THREAD_LIBS_INIT})
+    list(APPEND GLFW_LIBS_ALL ${GLFW_LIBRARIES} ${EXTRA_LIBS})
 else ()
     add_definitions(${GLFW3_CFLAGS})
-    set(GLFW_LIBS_ALL ${GLFW3_LDFLAGS} ${EXTRA_LIBS} ${CMAKE_DL_LIBS} ${CMAKE_THREAD_LIBS_INIT})
+    list(APPEND GLFW_LIBS_ALL ${GLFW3_LDFLAGS} ${EXTRA_LIBS})
 endif ()
 
 # Support for external glad
@@ -93,16 +93,16 @@ if (EXTERNAL_GLAD)
         SOURCE_DIR "${CMAKE_BINARY_DIR}/third_party/glad"
         STEP_TARGETS build
         EXCLUDE_FROM_ALL TRUE
-        CMAKE_ARGS -DGLAD_EXPORT=OFF
+        CMAKE_ARGS -DGLAD_EXPORT=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
     )
     set(GLAD_INCLUDE_DIRS "${CMAKE_BINARY_DIR}/GLAD-prefix/src/GLAD-build/include/")
     set(GLAD_LIBRARY_DIR "${CMAKE_BINARY_DIR}/GLAD-prefix/src/GLAD-build/")
     set(GLAD_LIBRARIES glad)
     include_directories(${GLAD_INCLUDE_DIRS})
     link_directories(${GLAD_LIBRARY_DIR})
-    list(APPEND GLFW_LIBS_ALL ${GLAD_LIBRARIES})
+    list(APPEND OPENGL_LOADER_LIBS ${GLAD_LIBRARIES})
 else ()
-    list(APPEND GLFW_LIBS_ALL ${OPENGL_opengl_LIBRARY})
+    list(APPEND OPENGL_LOADER_LIBS ${OPENGL_opengl_LIBRARY})
 endif ()
 
 if (SPIRV_BINARIES)
@@ -126,7 +126,7 @@ if (OPENGL_EXAMPLES)
     foreach(prog IN ITEMS gl4_hash)
         message("-- Adding: ${prog}")
         add_executable(${prog} src/${prog}.c)
-        target_link_libraries(${prog} ${GLFW_LIBS_ALL})
+        target_link_libraries(${prog} ${GLFW_LIBS_ALL} ${OPENGL_LOADER_LIBS})
         if (EXTERNAL_GLAD)
             target_compile_definitions(${prog} PRIVATE -DHAVE_GLAD)
         endif ()
