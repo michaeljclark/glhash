@@ -13,7 +13,13 @@
 #include <stdbool.h>
 #include <inttypes.h>
 
+#ifdef HAVE_GLAD
 #include <glad/glad.h>
+#else
+#define GL_GLEXT_PROTOTYPES
+#include <GL/gl.h>
+#include <GL/glext.h>
+#endif
 #include <GLFW/glfw3.h>
 
 #include "sha256.h"
@@ -207,7 +213,9 @@ int main(int argc, char *argv[])
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
     window = glfwCreateWindow(64, 64, argv[0], NULL, NULL);
     glfwMakeContextCurrent(window);
+#ifdef HAVE_GLAD
     gladLoadGL();
+#endif
     init();
     run_all_tests();
     glfwTerminate();
